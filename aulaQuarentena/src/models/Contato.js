@@ -14,6 +14,6 @@ const esquema = new mongoose.Schema({
     dataNascimento: Date
 });
 
-const Contato = mongoose.model('conato', esquema);
+const Contato = mongoose.model('contato', esquema);
 
 export default Contato;

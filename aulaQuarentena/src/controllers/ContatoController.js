@@ -1,19 +1,49 @@
+
 import Contato from '../models/Contato';
 
-const controller = {
 
-    salvar: async (contato) => {
-        await  Contato.create(contato);
-    },
-
-    recuperarTodos: async () => await contato.find(),
+export default class ContatoController{
     
-    recuperarPorNome: async(nomeConsulta) => await contato.find({
-        nome:{
-            '$regex': nomeConsulta, 
-            '$options':'i'
-        }
-    })
-};
+    async salvar(contato) {
+       const contatoSalvo = await  Contato.create(contato);
+       //atualizar
+        return contatoSalvo; 
+    }
 
-export default controller;
+     async recuperarTodos() {
+         const contatos = await contato.find();
+         return contatos;
+     }
+
+    async recuperarPorNome(nomeConsulta){
+         const contatos = await contato.find({
+            nome:{
+                '$regex': nomeConsulta, 
+                '$options':'i'
+            }
+        });
+
+        return contatos;
+    }
+
+    async recuperarPeloId(id){
+        const contato = await Contato.findById(id);
+        return contato;
+    }
+
+    async remover(id){
+      const resposta =  await Contato.deleteOne({
+          _id: id
+        });
+
+        return resposta;
+    }
+    
+
+}
+
+
+
+
+
+
